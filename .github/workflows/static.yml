@@ -1,0 +1,149 @@
+# Simple workflow for deploying static content to GitHub Pages
+name: Deploy static content to Pages
+
+on:
+  # Runs on pushes targeting the default branch
+  push:
+    branches: ["main"]
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+# Sets permissions of the GITHUB_TOKEN to allow deployment to GitHub Pages
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# Allow only one concurrent deployment, skipping runs queued between the run in-progress and latest queued.
+# However, do NOT cancel in-progress runs as we want to allow these production deployments to complete.
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
+
+jobs:
+  # Single deploy job since we're just deploying
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Setup Pages
+        uses: actions/configure-pages@v5
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          # Upload entire repository
+          path: '.'
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v5
+
+{
+  "project": {
+    "name": "Nava",
+    "version": "1.0.0",
+    "lastUpdated": "2026-09-22"
+  },
+  "governance": {
+    "codeOfConduct": true,
+    "openSourceCompliance": true,
+    "documentationRequired": true,
+    "changeApprovalRequired": true
+  },
+  "security": {
+    "requireTwoFactorAuthentication": true,
+    "encryptDataAtRest": true,
+    "encryptDataInTransit": true,
+    "secretManagement": "vault",
+    "dependencyScanning": true,
+    "containerScanning": true,
+    "securityReviewRequired": true
+  },
+  "development": {
+    "branchStrategy": "gitflow",
+    "defaultBranch": "main",
+    "requirePullRequest": true,
+    "minimumApprovals": 2,
+    "requireCodeReview": true,
+    "requireUnitTests": true,
+    "minimumTestCoverage": 80,
+    "requireLinting": true,
+    "requireFormatting": true
+  },
+  "backend": {
+    "framework": "NestJS",
+    "database": "PostgreSQL",
+    "orm": "Prisma",
+    "apiVersioning": true,
+    "swaggerDocumentation": true
+  },
+  "infrastructure": {
+    "containerization": "Docker",
+    "orchestration": "Kubernetes",
+    "eventBus": "Kafka",
+    "cache": "Redis",
+    "monitoring": [
+      "Prometheus",
+      "Grafana"
+    ],
+    "logging": "Centralized"
+  },
+  "privacy": {
+    "collectMinimumData": true,
+    "userDataExport": true,
+    "userDataDeletion": true,
+    "auditLogs": true,
+    "retentionPeriodDays": 365
+  },
+  "payments": {
+    "doubleEntryLedger": true,
+    "transactionAuditTrail": true,
+    "fraudDetection": true,
+    "kycRequired": true,
+    "amlMonitoring": true
+  },
+  "mobility": {
+    "gpsTracking": true,
+    "rideAuditLog": true,
+    "driverVerification": true,
+    "vehicleVerification": true,
+    "emergencySupport": true
+  },
+  "marketplace": {
+    "sellerVerification": true,
+    "productModeration": true,
+    "prohibitedProductsCheck": true,
+    "orderTracking": true,
+    "refundPolicyRequired": true
+  },
+  "businessRules": {
+    "initialDriverCommissionPercent": 0,
+    "futureDriverCommissionPercent": 5,
+    "walletEnabled": true,
+    "multiPaymentMethods": true
+  },
+  "ciCd": {
+    "githubActions": true,
+    "automatedTesting": true,
+    "securityChecks": true,
+    "stagingDeployment": true,
+    "productionApprovalRequired": true
+  },
+  "compliance": {
+    "gdprPrinciples": true,
+    "dataProtectionPolicy": true,
+    "antiFraudPolicy": true,
+    "vendorRiskManagement": true
+  },
+  "repositoryRules": {
+    "protectedMainBranch": true,
+    "signedCommitsPreferred": true,
+    "conventionalCommits": true,
+    "issueTemplateRequired": true,
+    "pullRequestTemplateRequired": true
+  }
+}
